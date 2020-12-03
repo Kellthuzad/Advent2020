@@ -1,5 +1,5 @@
 def main():
-    filehandle = open("./Day3/input.txt")
+    filehandle = open("./Day03/input.txt")
     lines = []
     for line in filehandle:
         lines.append(line.rstrip())

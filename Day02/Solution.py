@@ -1,5 +1,5 @@
 def main():
-    filehandle = open("./Day2/input.txt")
+    filehandle = open("./Day02/input.txt")
     lines = []
     validpw = 0
     for line in filehandle:

@@ -2,7 +2,7 @@ import urllib.request as Request
 
 
 def main():
-    filehandle = open("./Day1/input.txt")
+    filehandle = open("./Day01/input.txt")
     lines = []
     numbers = []
     for line in filehandle:
