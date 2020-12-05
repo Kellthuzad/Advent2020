@@ -4,53 +4,48 @@ def main():
     for line in filehandle:
         lines.append(line.rstrip())
 
-    seats = []
-    highestSeatid = -5
-    for boardingpass in lines:
-        currentSeatId = find_seat_ID(boardingpass)
-        seats.append(currentSeatId)
-        if(highestSeatid < currentSeatId):
-            highestSeatid = currentSeatId
-    print(highestSeatid)
 
-    seats.sort()
+    seats = getAllSeatIds(lines)
 
-    previousSeat = seats[0]
-    for seat in seats[1:]:
-        if(previousSeat + 1 != seat):
-            print(previousSeat + 1)
-            break
-        previousSeat = seat
-
+    print(max(seats))
+    print(getMissingSeat(seats))
+    
+    
 
 def binarysplit(command, minNumber, maxNumber):
-    delta = int((maxNumber - minNumber)/2) + 1
-
+    delta = (maxNumber - minNumber)//2 + 1
     if(command == 'B' or command == 'R'):
         minNumber += delta
     elif(command == 'F' or command == 'L'):
         maxNumber -= delta 
     return (minNumber, maxNumber)
 
-def find_seat_ID(boardingpass):
-
-    minNumber = 0
-    maxNumber = 127
-    for command in boardingpass[:7]:
+def binarytraversal(commands, minNumber, maxNumber):
+    for command in commands:
         (minNumber, maxNumber) = binarysplit(command, minNumber, maxNumber)
         if(minNumber == maxNumber):
             break
-    row = minNumber
+    return minNumber
 
-    minNumber = 0
-    maxNumber = 7
-    for newCommand in boardingpass[-3:]:
-        (minNumber, maxNumber) = binarysplit(newCommand, minNumber, maxNumber)
-        if(minNumber == maxNumber):
-            break
-    column = minNumber
+def find_seat_ID(boardingpass):
+    row = binarytraversal(boardingpass[:7], 0, 127)
+    column = binarytraversal(boardingpass[-3:], 0, 7)
 
     return row * 8 + column
     
+def getAllSeatIds(lines):
+    seats = []
+    for boardingpass in lines:
+        seats.append(find_seat_ID(boardingpass))
+    
+    return seats
+
+def getMissingSeat(seats):
+    seats.sort()    
+    previousSeat = seats[0]
+    for seat in seats[1:]:
+        if(previousSeat + 1 != seat):
+            return (previousSeat + 1)
+        previousSeat = seat
 
 main()
