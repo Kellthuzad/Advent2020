@@ -13,7 +13,7 @@ def parseMeDaddy(lines):
 
     populated_rules = phase1part2(lines)
     value_by_column = phase3part2(totalError[1]) 
-    column_map = findAttributes(populated_rules, value_by_column, {})
+    column_map = findAttributes(populated_rules, value_by_column)
     getAnswer(column_map, my_ticket_values[1])
 
 def getAnswer(map, my_ticket):
@@ -24,8 +24,8 @@ def getAnswer(map, my_ticket):
     print(num)
 
 
-def findAttributes(rules, value_by_column, column_map):
-    
+def findAttributes(rules, value_by_column):
+    column_map = {}
     while len(column_map) != len(rules):
         new_value_list = {}
         for i, values in value_by_column.items():
